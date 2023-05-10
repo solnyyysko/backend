@@ -42,4 +42,8 @@ public class Museum {
             inverseJoinColumns = @JoinColumn(name = "userid"))
     public Set<User>
             users = new HashSet<>();
+
+    public String getName(){
+        return this.name;
+    }
 }
