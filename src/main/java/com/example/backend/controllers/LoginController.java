@@ -12,7 +12,7 @@ import com.example.backend.repositories.UserRepository;
 import java.time.LocalDateTime;
 import java.util.*;
 
-// @CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 public class LoginController {

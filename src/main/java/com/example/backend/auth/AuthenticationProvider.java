@@ -28,20 +28,17 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails,
                                                   UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
-
     }
 
     @Override
     protected UserDetails retrieveUser(String userName,
-                                       UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken)
-            throws AuthenticationException {
+                                       UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 
         Object token = usernamePasswordAuthenticationToken.getCredentials();
         Optional<com.example.backend.models.User> uu = userRepository.findByToken(String.valueOf(token));
         if (!uu.isPresent())
             throw new UsernameNotFoundException("user is not found");
         com.example.backend.models.User u = uu.get();
-
         boolean timeout = true;
         LocalDateTime dt  = LocalDateTime.now();
         if (u.activity != null) {
@@ -58,7 +55,6 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
             u.activity = dt;
             userRepository.save(u);
         }
-
         UserDetails user= new User(u.login, u.password,
                 true,
                 true,
@@ -67,4 +63,5 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
                 AuthorityUtils.createAuthorityList("USER"));
         return user;
     }
+
 }
